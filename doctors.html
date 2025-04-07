@@ -103,27 +103,97 @@
                 <option value="Palliative Care">Palliative Care</option>
             </select>
             <select id="location-search">
-                <option value="">Select Location</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Warangal">Warangal</option>
-                <option value="Nizamabad">Nizamabad</option>
-                <option value="Karimnagar">Karimnagar</option>
-                <option value="Khammam">Khammam</option>
-                <option value="Adilabad">Adilabad</option>
-            </select>
+                    <option value="">Select Location</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Warangal">Warangal</option>
+                    <option value="Nizamabad">Nizamabad</option>
+                    <option value="Karimnagar">Karimnagar</option>
+                    <option value="Khammam">Khammam</option>
+                    <option value="Adilabad">Adilabad</option>
+                    <option value="Mahabubnagar">Mahabubnagar</option>
+                    <option value="Sangareddy">Sangareddy</option>
+                    <option value="Nalgonda">Nalgonda</option>
+                    <option value="Ranga Reddy">Ranga Reddy</option>
+             </select>
+                
+            
             <button onclick="filterDoctors()">🔍 Search</button>
         </div>
         <div class="doctor-list" id="doctor-list"></div>
     </div>
     <script>
         const services = [
-            { name: "Blood & Urine Test", specialty: "Lab Services", qualification: "Certified Lab Technicians", location: "Statewide" },
-            { name: "Health Checkup", specialty: "Full Body Checkup", qualification: "Certified Diagnostic Center", location: "Statewide" },
-            { name: "Dr. Arjun Reddy", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
-            { name: "Dr. Kavitha Menon", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
-            { name: "Dr. Rajesh Gupta", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" },
-            { name: "Dr. Sneha Rao", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" }
-        ];
+        { name: "Dr. Arjun Reddy", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
+  { name: "Dr. Kavitha Menon", specialty: "Gynecologist", qualification: "MBBS, MS (OBG)", location: "Hyderabad" },
+  { name: "Dr. Rajesh Gupta", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" },
+  { name: "Dr. Sneha Rao", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Hyderabad" },
+  { name: "Dr. Faizan Khan", specialty: "Radiologist", qualification: "MBBS, MD - Radiology", location: "Hyderabad" },
+  { name: "Dr. Asha Thomas", specialty: "Palliative Care", qualification: "MBBS, Fellowship in Palliative Medicine", location: "Hyderabad" },
+
+  // Warangal
+  { name: "Dr. Sandeep Rathi", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Warangal" },
+  { name: "Dr. Pranitha Iyer", specialty: "General Physician", qualification: "MBBS, MD", location: "Warangal" },
+  { name: "Dr. Vamshi Krishna", specialty: "Radiologist", qualification: "MBBS, MD", location: "Warangal" },
+  { name: "Dr. Anitha Devi", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Warangal" },
+  { name: "Dr. Naveen K", specialty: "Palliative Care", qualification: "MBBS, Fellowship", location: "Warangal" },
+  { name: "Dr. Tara Bhargavi", specialty: "Physiotherapist", qualification: "BPT", location: "Warangal" },
+
+  // Nizamabad
+  { name: "Dr. Latha Ramesh", specialty: "General Physician", qualification: "MBBS, MD", location: "Nizamabad" },
+  { name: "Dr. Uday Shekar", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Nizamabad" },
+  { name: "Dr. Sindhura M", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Nizamabad" },
+  { name: "Dr. Mahesh Kumar", specialty: "Radiologist", qualification: "MBBS, MD", location: "Nizamabad" },
+  { name: "Dr. Triveni Rao", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Nizamabad" },
+
+  // Karimnagar
+  { name: "Dr. Rahul Das", specialty: "General Physician", qualification: "MBBS, MD", location: "Karimnagar" },
+  { name: "Dr. Deepika Nair", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Karimnagar" },
+  { name: "Dr. Sai Kishore", specialty: "Radiologist", qualification: "MBBS, MD", location: "Karimnagar" },
+  { name: "Dr. Lavanya K", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Karimnagar" },
+  { name: "Dr. Harsha Vardhan", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Karimnagar" },
+
+  // Khammam
+  { name: "Dr. Ashok Reddy", specialty: "General Physician", qualification: "MBBS, MD", location: "Khammam" },
+  { name: "Dr. Megha Sharma", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Khammam" },
+  { name: "Dr. Karthik V", specialty: "Radiologist", qualification: "MBBS, MD", location: "Khammam" },
+  { name: "Dr. Haritha Rao", specialty: "Palliative Care", qualification: "MBBS, Fellowship", location: "Khammam" },
+  { name: "Dr. Shalini Iyer", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Khammam" },
+
+  // Adilabad
+  { name: "Dr. Shashank Rao", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Adilabad" },
+  { name: "Dr. Kiran Jyothi", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Adilabad" },
+  { name: "Dr. Sameer Khan", specialty: "General Physician", qualification: "MBBS, MD", location: "Adilabad" },
+  { name: "Dr. Supriya Reddy", specialty: "Radiologist", qualification: "MBBS, MD", location: "Adilabad" },
+  { name: "Dr. Vikas Sharma", specialty: "Physiotherapist", qualification: "BPT", location: "Adilabad" },
+
+  // Mahabubnagar
+  { name: "Dr. Charan Teja", specialty: "General Physician", qualification: "MBBS, MD", location: "Mahabubnagar" },
+  { name: "Dr. Pooja Mehta", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Mahabubnagar" },
+  { name: "Dr. Arvind R", specialty: "Radiologist", qualification: "MBBS, MD", location: "Mahabubnagar" },
+  { name: "Dr. Yamini Rao", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Mahabubnagar" },
+  { name: "Dr. Srinivas Rao", specialty: "Palliative Care", qualification: "MBBS", location: "Mahabubnagar" },
+
+  // Sangareddy
+  { name: "Dr. Neha Agarwal", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Sangareddy" },
+  { name: "Dr. Ramesh D", specialty: "General Physician", qualification: "MBBS, MD", location: "Sangareddy" },
+  { name: "Dr. Kiran Reddy", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Sangareddy" },
+  { name: "Dr. Vinutha", specialty: "Radiologist", qualification: "MBBS, MD", location: "Sangareddy" },
+  { name: "Dr. Harika T", specialty: "Physiotherapist", qualification: "BPT", location: "Sangareddy" },
+
+  // Nalgonda
+  { name: "Dr. Manoj Kumar", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Nalgonda" },
+  { name: "Dr. Swathi G", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Nalgonda" },
+  { name: "Dr. Chaitanya Rao", specialty: "General Physician", qualification: "MBBS, MD", location: "Nalgonda" },
+  { name: "Dr. Bhanu Reddy", specialty: "Radiologist", qualification: "MBBS, MD", location: "Nalgonda" },
+  { name: "Dr. Leela Thomas", specialty: "Palliative Care", qualification: "MBBS", location: "Nalgonda" },
+
+  // Ranga Reddy
+  { name: "Dr. Mahendra Rao", specialty: "Cardiologist", qualification: "MBBS, DM", location: "Ranga Reddy" },
+  { name: "Dr. Divya Shah", specialty: "Gynecologist", qualification: "MBBS, MS", location: "Ranga Reddy" },
+  { name: "Dr. Rohit Menon", specialty: "General Physician", qualification: "MBBS, MD", location: "Ranga Reddy" },
+  { name: "Dr. Snehalatha", specialty: "Radiologist", qualification: "MBBS, MD", location: "Ranga Reddy" },
+  { name: "Dr. Kruthi K", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Ranga Reddy" },
+];
         
         function displayServices(serviceList) {
             const list = document.getElementById("doctor-list");
