@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocOnDemand</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b, #86a8e7, #91eac9);
+            background-size: 600% 600%;
+            animation: gradientAnimation 20s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007bff !important;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #0056b3 !important;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 1.1rem;
+            color: #555 !important;
+            margin: 0 15px;
+            padding: 8px 15px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #007bff;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 70%;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff !important;
+        }
+
+        .btn-primary,
+        .btn-success {
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border: none;
+        }
+
+        .btn-success {
+            background: #28a745;
+            border: none;
+        }
+
+        .btn-primary:hover,
+        .btn-success:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0, 123, 255, 0.4), 0 6px 18px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 120px 0;
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease-in-out;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            line-height: 1.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeIn 2s ease-in-out;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .carousel-inner img {
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item.active img {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Feature Boxes */
+        .feature-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 60px 0;
+        }
+
+        .feature-section h2 {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .feature-box:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            border-color: #007bff;
+        }
+
+        .feature-box img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover img {
+            transform: scale(1.1);
+        }
+
+        .feature-box h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .feature-box p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(51, 51, 51, 0.95);
+            backdrop-filter: blur(12px);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        footer p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #007bff;
+            text-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .feature-box {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .feature-section h2 {
+                font-size: 2rem;
+            }
+
+            .feature-box img {
+                max-width: 120px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+
+            .btn-primary, .btn-success {
+                padding: 10px 25px;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .feature-box h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particle Background -->
+    
+    
+    
+       
+    <div id="particles-js"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">DocOnDemand</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="urgentcare.html">Urgent Care</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Mental Health.html">Mental Health</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About Us.html">About</a></li>
+                    <li class="nav-item"><a class="btn btn-primary" href="login.html">Log in</a></li>
+                    <li class="nav-item"><a class="btn btn-success ms-2" href="singup.html">Sign up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1>See a Doctor Anytime with DocOnDemand</h1>
+                    <p>You don’t have to wait in long lines or travel far to see a doctor. With <strong>DocOnDemand</strong>, you can talk to a <strong>doctor, therapist, or psychiatrist</strong> from your <strong>phone or computer</strong>—anytime, anywhere.</p>
+                    <a class="btn btn-primary" href="login.html">Get Started</a>
+                </div>
+                <div class="col-md-6">
+                    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="img1.jpg" class="d-block w-100" alt="Image 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img2.jpg" class="d-block w-100" alt="Image 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img3.jpg" class="d-block w-100" alt="Image 3">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img4.jpg" class="d-block w-100" alt="Image 4">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img5.jpg" class="d-block w-100" alt="Image 5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section container my-5">
+        <h2 class="text-center mb-4">Why Choose DocOnDemand?</h2>
+        <div class="d-flex justify-content-around align-items-start flex-wrap text-center">
+            <div class="feature-box col-md-3 m-3">
+                <img src="img12.avif" alt="24/7 Care" class="img-fluid mb-3 rounded">
+                <h3>24/7 Care</h3>
+                <p>Talk to a <strong>doctor, therapist, or psychiatrist</strong> anytime—day or night.</p>
+                <p>No waiting, no travel—get help <strong>365 days a year</strong>.</p>
+            </div>
+            <div class="feature-box col-md-3 m-3">
+                <img src="img13.jpg" alt="Safe & Private" class="img-fluid mb-3 rounded">
+                <h3>Safe & Private</h3>
+                <p>Your health details are <strong>secure and confidential</strong>.</p>
+                <p>Speak with <strong>trusted, board-certified doctors</strong>.</p>
+            </div>
+            <div class="feature-box col-md-3 m-3">
+                <img src="img14.webp" alt="Easy Appointments" class="img-fluid mb-3 rounded">
+                <h3>📅 Easy Appointments</h3>
+                <p>Book a consultation in just a few clicks and get connected with a doctor fast.</p>
+                <p>Choose a time that works for you—no long waits or travel needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 DocOnDemand. All rights reserved.</p>
+        <p>Made with <span style="color: red;">♥</span> for better healthcare.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Particle.js Initialization
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
+                opacity: { value: 0.7, random: true, anim: { enable: true, speed: 1.5, opacity_min: 0.1, sync: false } },
+                size: { value: 5, random: true, anim: { enable: false, speed: 40, size_min: 0.1, sync: false } },
+                line_linked: { enable: false },
+                move: { enable: true, speed: 3, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor in Telangana</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: linear-gradient(135deg, #f9f9f9, #e3f2fd);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        select, input {
+            padding: 14px;
+            width: 300px;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+            background: #fff;
+            cursor: pointer;
+        }
+        select:focus, input:focus {
+            box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            padding: 14px 22px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .doctor-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .doctor-card {
+            width: 320px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .doctor-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .book-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        .book-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: #007bff; font-size: 36px; font-weight: bold;">Find a Doctor & Medical Services in Telangana</h1>
+        <div class="search-container">
+            <select id="specialty-search">
+                <option value="">Select Specialty</option>
+                <option value="General Physician">General Physician</option>
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Physiotherapist">Physiotherapist</option>
+                <option value="Gynecologist">Gynecologist</option>
+                <option value="Radiologist">Radiologist</option>
+                <option value="Palliative Care">Palliative Care</option>
+            </select>
+            <select id="location-search">
+                <option value="">Select Location</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Warangal">Warangal</option>
+                <option value="Nizamabad">Nizamabad</option>
+                <option value="Karimnagar">Karimnagar</option>
+                <option value="Khammam">Khammam</option>
+                <option value="Adilabad">Adilabad</option>
+            </select>
+            <button onclick="filterDoctors()">🔍 Search</button>
+        </div>
+        <div class="doctor-list" id="doctor-list"></div>
+    </div>
+    <script>
+        const services = [
+            { name: "Blood & Urine Test", specialty: "Lab Services", qualification: "Certified Lab Technicians", location: "Statewide" },
+            { name: "Health Checkup", specialty: "Full Body Checkup", qualification: "Certified Diagnostic Center", location: "Statewide" },
+            { name: "Dr. Arjun Reddy", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
+            { name: "Dr. Kavitha Menon", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
+            { name: "Dr. Rajesh Gupta", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" },
+            { name: "Dr. Sneha Rao", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" }
+        ];
+        
+        function displayServices(serviceList) {
+            const list = document.getElementById("doctor-list");
+            list.innerHTML = "";
+            serviceList.forEach(service => {
+                list.innerHTML += `
+                    <div class="doctor-card">
+                        <h3>${service.name}</h3>
+                        <p><strong>Specialty:</strong> ${service.specialty}</p>
+                        <p><strong>Qualification:</strong> ${service.qualification}</p>
+                        <p><strong>Location:</strong> ${service.location}</p>
+                        <button class="book-btn" onclick="bookNow('${service.name}')">Book Now</button>
+                    </div>
+                `;
+            });
+        }
+
+        function bookNow(doctorName) {
+            window.location.href = `booknow.html?doctor=${encodeURIComponent(doctorName)}`;
+        }
+
+        function filterDoctors() {
+            const specialtySearch = document.getElementById("specialty-search").value.toLowerCase();
+            const locationSearch = document.getElementById("location-search").value.toLowerCase();
+            const filtered = services.filter(service =>
+                (specialtySearch === "" || service.specialty.toLowerCase() === specialtySearch) &&
+                (locationSearch === "" || service.location.toLowerCase() === locationSearch)
+            );
+            displayServices(filtered);
+        }
+
+        displayServices(services);
+    </script>
+</body>
+</html>

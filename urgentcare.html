@@ -1,0 +1,208 @@
+<section class="urgent-care-hero text-center text-dark d-flex align-items-center justify-content-center">
+    <div class="container border border-danger rounded p-4 shadow-lg">
+        <h1 class="display-4 fw-bold border border-danger p-3 rounded bg-light">🚑 Urgent Care Services</h1>
+        <p class="lead">Immediate medical attention, anytime, anywhere. Get the care you need in minutes.</p>
+        <a href="#appointment" class="btn btn-lg btn-danger fw-bold mt-3 shadow">Book an Appointment</a>
+    </div>
+</section>
+
+<section class="container my-5 border border-danger rounded p-4 shadow-lg">
+    <h2 class="text-center mb-4 fw-bold border border-danger p-3 rounded bg-light">Our Emergency Services</h2>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="service-card p-4 shadow-lg rounded border border-danger">
+                <div class="icon-circle bg-danger text-white"><i class="fas fa-user-md"></i></div>
+                <h4 class="mt-3">Emergency Consultation</h4>
+                <p>Instantly connect with a certified doctor for urgent medical assistance.</p>
+                <a href="#" class="btn btn-danger btn-sm mt-2 shadow">Get Help Now</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card p-4 shadow-lg rounded border border-success">
+                <div class="icon-circle bg-success text-white"><i class="fas fa-home"></i></div>
+                <h4 class="mt-3">Home Visit Appointments</h4>
+                <p>Book a doctor for a home visit and receive personalized medical care.</p>
+                <a href="#" class="btn btn-success btn-sm mt-2 shadow">Book a Visit</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card p-4 shadow-lg rounded border border-warning">
+                <div class="icon-circle bg-warning text-white"><i class="fas fa-phone-alt"></i></div>
+                <h4 class="mt-3">24/7 Support</h4>
+                <p>Our dedicated medical team is available round the clock to assist you.</p>
+                <a href="#" class="btn btn-warning btn-sm mt-2 shadow">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Hero Section */
+    .urgent-care-hero {
+        background: linear-gradient(135deg, #ff4e50, #fc913a);
+        padding: 100px 0;
+        position: relative;
+        color: white;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+    }
+
+    .urgent-care-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        z-index: 1;
+    }
+
+    .urgent-care-hero h1 {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.2);
+        display: inline-block;
+        padding: 15px 30px;
+        border-radius: 15px;
+        position: relative;
+        z-index: 2;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .urgent-care-hero p {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .urgent-care-hero .btn {
+        position: relative;
+        z-index: 2;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .urgent-care-hero .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Service Cards */
+    .service-card {
+        background: #ffffff;
+        border: 3px solid #ddd;
+        transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 20px;
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(to right, #d32f2f, #f57c00, #43a047);
+    }
+
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 32px;
+        margin: auto;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+        background: linear-gradient(135deg, #d32f2f, #f57c00);
+    }
+
+    .icon-circle:hover {
+        transform: scale(1.2);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-card h4 {
+        font-weight: bold;
+        margin-top: 15px;
+        text-transform: uppercase;
+        color: #333;
+    }
+
+    .service-card p {
+        font-size: 16px;
+        color: #555;
+        font-weight: 500;
+    }
+
+    .service-card a {
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 12px 25px;
+        transition: all 0.3s ease-in-out;
+        background: linear-gradient(135deg, #d32f2f, #f57c00);
+        color: white;
+        border: none;
+    }
+
+    .service-card a:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .urgent-care-hero {
+            padding: 60px 0;
+        }
+
+        .urgent-care-hero h1 {
+            font-size: 2rem;
+            padding: 10px 20px;
+        }
+
+        .urgent-care-hero p {
+            font-size: 1rem;
+        }
+
+        .service-card {
+            padding: 20px;
+        }
+
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+        }
+
+        .service-card h4 {
+            font-size: 1.2rem;
+        }
+
+        .service-card p {
+            font-size: 14px;
+        }
+
+        .service-card a {
+            padding: 10px 20px;
+        }
+    }
+</style>

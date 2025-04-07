@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Payment</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #cfd9df, #e2ebf0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #ff4081;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        select, input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ff4081;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        input:focus, select:focus {
+            box-shadow: 0px 0px 12px rgba(255, 64, 129, 0.6);
+        }
+        button {
+            background: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+        }
+        button:hover {
+            background: #e91e63;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Complete Your Payment</h2>
+        <div class="details">
+            <p><strong>Name:</strong> <span id="patient-name"></span></p>
+            <p><strong>Date:</strong> <span id="appointment-date"></span></p>
+            <p><strong>Time:</strong> <span id="appointment-time"></span></p>
+            <p><strong>Payment:</strong> ₹500 (Pending)</p>
+        </div>
+        <label for="payment-method">Select Payment Method:</label>
+        <select id="payment-method" onchange="showPaymentFields()">
+            <option value="">-- Select Payment Method --</option>
+            <option value="credit">Credit/Debit Card</option>
+            <option value="upi">UPI</option>
+        </select>
+        
+        <div id="card-details" style="display: none;">
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="card-name" placeholder="Cardholder Name">
+            <input type="text" id="expiry" placeholder="Expiry Date (MM/YY)">
+            <input type="text" id="cvv" placeholder="CVV">
+        </div>
+        
+        <div id="upi-details" style="display: none;">
+            <input type="text" id="upi-id" placeholder="Enter UPI ID">
+        </div>
+        
+        <button onclick="confirmPayment()">Pay Now</button>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById("patient-name").textContent = params.get("name");
+            document.getElementById("appointment-date").textContent = params.get("date");
+            document.getElementById("appointment-time").textContent = params.get("time");
+        }
+        
+        function showPaymentFields() {
+            const method = document.getElementById("payment-method").value;
+            document.getElementById("card-details").style.display = method === "credit" ? "block" : "none";
+            document.getElementById("upi-details").style.display = method === "upi" ? "block" : "none";
+        }
+        
+        function confirmPayment() {
+            const method = document.getElementById("payment-method").value;
+            if (!method) {
+                alert("Please select a payment method.");
+                return;
+            }
+            
+            if (method === "credit") {
+                const cardNumber = document.getElementById("card-number").value.trim();
+                const cardName = document.getElementById("card-name").value.trim();
+                const expiry = document.getElementById("expiry").value.trim();
+                const cvv = document.getElementById("cvv").value.trim();
+                if (!cardNumber || !cardName || !expiry || !cvv) {
+                    alert("Please enter all card details.");
+                    return;
+                }
+            }
+            
+            if (method === "upi") {
+                const upiId = document.getElementById("upi-id").value.trim();
+                if (!upiId) {
+                    alert("Please enter your UPI ID.");
+                    return;
+                }
+            }
+            
+            alert("✅ Payment Successful! Your appointment is confirmed.");
+            window.location.href = "afterpayment.html"; // Redirect to afterpayment page
+        }
+        
+        window.onload = getQueryParams;
+    </script>
+</body>
+</html>

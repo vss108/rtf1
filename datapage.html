@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor in Telangana</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #f9f9f9, #e3f2fd);
+            position: relative;
+            overflow: hidden;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        select, input {
+            padding: 14px;
+            width: 300px;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+            background: #fff;
+            cursor: pointer;
+        }
+        select:focus, input:focus {
+            box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            padding: 14px 22px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .doctor-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .doctor-card {
+            width: 320px;
+            background: white;
+            margin: 15px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .book-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease-in-out;
+        }
+        .book-btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: #007bff; font-size: 34px; font-weight: bold;">Find a Doctor & Medical Services in Telangana</h1>
+    <div class="search-container">
+        <select id="specialty-search">
+            <option value="">Select Specialty</option>
+            <option value="General Physician">General Physician</option>
+            <option value="Cardiologist">Cardiologist</option>
+            <option value="Physiotherapist">Physiotherapist</option>
+            <option value="Gynecologist">Gynecologist</option>
+            <option value="Radiologist">Radiologist</option>
+            <option value="Palliative Care">Palliative Care</option>
+        </select>
+        <select id="location-search">
+            <option value="">Select Location</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Warangal">Warangal</option>
+            <option value="Nizamabad">Nizamabad</option>
+            <option value="Karimnagar">Karimnagar</option>
+            <option value="Khammam">Khammam</option>
+            <option value="Adilabad">Adilabad</option>
+        </select>
+        <button onclick="filterDoctors()">🔍 Search</button>
+    </div>
+    <div class="doctor-list" id="doctor-list"></div>
+    <script>
+        const doctors = [
+            { name: "Blood & Urine Test", specialty: "Lab Services", qualification: "Certified Lab Technicians", location: "Statewide" },
+            { name: "Health Checkup", specialty: "Full Body Checkup", qualification: "Certified Diagnostic Center", location: "Statewide" },
+            { name: "Dr. Arjun Reddy", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
+            { name: "Dr. Kavitha Menon", specialty: "General Physician", qualification: "MBBS, MD", location: "Hyderabad" },
+            { name: "Dr. Rajesh Gupta", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" },
+            { name: "Dr. Sneha Rao", specialty: "Cardiologist", qualification: "MBBS, DM - Cardiology", location: "Hyderabad" },
+            { name: "Dr. Priya Sharma", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Warangal" },
+            { name: "Dr. Vikram Joshi", specialty: "Physiotherapist", qualification: "BPT, MPT", location: "Warangal" },
+            { name: "Dr. Rakesh Varma", specialty: "Home Nurse", qualification: "BSc Nursing, MSc Nursing", location: "Nizamabad" },
+            { name: "Dr. Manjula Rani", specialty: "Home Nurse", qualification: "BSc Nursing, MSc Nursing", location: "Nizamabad" }
+        ];
+        const list = document.getElementById("doctor-list");
+        doctors.forEach(doc => {
+            list.innerHTML += `
+                <div class="doctor-card">
+                    <h3>${doc.name}</h3>
+                    <p><strong>Specialty:</strong> ${doc.specialty}</p>
+                    <p><strong>Qualification:</strong> ${doc.qualification}</p>
+                    <p><strong>Location:</strong> ${doc.location}</p>
+                    <button class="book-btn">Book Now</button>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

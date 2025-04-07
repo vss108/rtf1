@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmed</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #eef2f3, #d9e4ec);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in-out;
+            margin-bottom: 20px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.08);
+        }
+        .chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: slideUp 0.5s ease-in-out;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-body {
+            height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            background: #f8f9fa;
+        }
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #fff;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .chat-input button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 12px;
+            margin-left: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✅ Appointment Confirmed!</h2>
+        <div class="details">
+            <p><strong>Name:</strong> <span id="patient-name"></span></p>
+            <p><strong>Date:</strong> <span id="appointment-date"></span></p>
+            <p><strong>Time:</strong> <span id="appointment-time"></span></p>
+            <p><strong>Payment:</strong> ₹500 (Paid)</p>
+        </div>
+        <button onclick="window.location.href='index.html'">Back to Home</button>
+        <button onclick="openChat()">Chat with Doctor</button>
+    </div>
+    
+    <div class="chat-box" id="chat-box">
+        <div class="chat-header">Doctor Chat <span style="cursor:pointer;" onclick="closeChat()">✖</span></div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="chat-input">
+            <input type="text" id="chat-message" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById("patient-name").textContent = params.get("name");
+            document.getElementById("appointment-date").textContent = params.get("date");
+            document.getElementById("appointment-time").textContent = params.get("time");
+        }
+        
+        function openChat() {
+            document.getElementById("chat-box").style.display = "block";
+        }
+        
+        function closeChat() {
+            document.getElementById("chat-box").style.display = "none";
+        }
+        
+        function sendMessage() {
+            const message = document.getElementById("chat-message").value;
+            if (message.trim() === "") return;
+            
+            const chatBody = document.getElementById("chat-body");
+            const userMessage = document.createElement("p");
+            userMessage.textContent = "You: " + message;
+            chatBody.appendChild(userMessage);
+            document.getElementById("chat-message").value = "";
+            
+            setTimeout(() => {
+                const doctorResponse = document.createElement("p");
+                doctorResponse.textContent = "Doctor: Thank you for reaching out. How can I assist you today?";
+                chatBody.appendChild(doctorResponse);
+            }, 1000);
+        }
+        
+        window.onload = getQueryParams;
+    </script>
+</body>
+</html>
