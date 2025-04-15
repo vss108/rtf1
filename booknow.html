@@ -1,146 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Appointment</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .background {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://source.unsplash.com/1600x900/?hospital,healthcare');
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px);
-            z-index: -1;
-        }
-        .container {
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 0.6s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        h2 {
-            color: #007bff;
-            margin-bottom: 20px;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 2px solid #007bff;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease-in-out;
-        }
-        input:focus, select:focus {
-            box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.6);
-        }
-        button {
-            background: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        button:hover {
-            background: #218838;
-            transform: scale(1.05);
-        }
-        .disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://source.unsplash.com/1600x900/?hospital,healthcare');
+      background-size: cover;
+      background-position: center;
+      filter: blur(5px);
+      z-index: -1;
+    }
+    .container {
+      max-width: 500px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease-in-out;
+    }
+    input:focus, select:focus {
+      box-shadow: 0px 0px 12px rgba(0, 123, 255, 0.6);
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      background: #218838;
+      transform: scale(1.05);
+    }
+    .disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="container">
-        <h2>Book an Appointment</h2>
-        
-        <label for="patient-name">Your Name:</label>
-        <input type="text" id="patient-name" placeholder="Enter your name" required>
-        
-        <label for="contact">Contact Number:</label>
-        <input type="text" id="contact" placeholder="Enter your contact number" required>
-        
-        <label for="appointment-date">Select Date:</label>
-        <input type="date" id="appointment-date" required>
-        
-        <label for="appointment-time">Select Time Slot:</label>
-        <select id="appointment-time">
-            <option value="09:00 AM">9:00 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="01:00 PM">1:00 PM</option>
-            <option value="03:00 PM">3:00 PM</option>
-            <option value="05:00 PM">5:00 PM</option>
-            <option value="07:00 PM">7:00 PM</option>
-        </select>
-        
-        <button id="confirm-btn" onclick="confirmBooking()">Confirm Booking</button>
-    </div>
+  <div class="background"></div>
+  <div class="container">
+    <h2>Book an Appointment</h2>
 
-    <script>
-        const bookedSlots = {};
+    <label for="patient-name">Your Name:</label>
+    <input type="text" id="patient-name" placeholder="Enter your name" required>
 
-        function confirmBooking() {
-            const name = document.getElementById("patient-name").value.trim();
-            const contact = document.getElementById("contact").value.trim();
-            const date = document.getElementById("appointment-date").value;
-            const time = document.getElementById("appointment-time").value;
-            const button = document.getElementById("confirm-btn");
-            
-            const today = new Date().toISOString().split('T')[0];
-            if (date < today) {
-                alert("Please select a valid future date.");
-                return;
-            }
-            
-            if (!name || !contact || !date || !time) {
-                alert("Please fill all details before confirming.");
-                return;
-            }
+    <label for="contact">Contact Number:</label>
+    <input type="text" id="contact" placeholder="Enter your contact number (10 digits)" required maxlength="10" oninput="validateContactNumber(event)">
 
-            if (!bookedSlots[date]) {
-                bookedSlots[date] = new Set();
-            }
+    <label for="appointment-date">Select Date:</label>
+    <input type="date" id="appointment-date" required onchange="validateDate()" min="" />
 
-            if (bookedSlots[date].has(time)) {
-                alert("This time slot is already booked. Please select another time.");
-                return;
-            }
+    <label for="appointment-time">Select Time Slot:</label>
+    <select id="appointment-time" required>
+      <!-- Time slots will be dynamically inserted here -->
+    </select>
 
-            bookedSlots[date].add(time);
-            button.classList.add("disabled");
-            button.disabled = true;
-            
-            alert(`✅ Appointment Confirmed!\n\n📌 Name: ${name}\n📞 Contact: ${contact}\n📅 Date: ${date}\n🕒 Time: ${time}`);
-            
-            // Redirect to pay.html with appointment details
-            window.location.href = `pay.html?name=${encodeURIComponent(name)}&contact=${encodeURIComponent(contact)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+    <button id="confirm-btn" onclick="confirmBooking()">Confirm Booking</button>
+  </div>
+
+  <script>
+    const bookedSlots = {};
+
+    // Function to validate contact number (only 10 digits allowed)
+    function validateContactNumber(event) {
+      let contactValue = event.target.value;
+      contactValue = contactValue.replace(/[^0-9]/g, ''); // Remove non-digit characters
+      if (contactValue.length > 10) {
+        contactValue = contactValue.slice(0, 10); // Limit to 10 digits
+      }
+      event.target.value = contactValue;
+    }
+
+    // Function to validate the date and time input
+    function validateDate() {
+      const selectedDate = document.getElementById("appointment-date").value;
+      const selectedTime = document.getElementById("appointment-time").value;
+      const today = new Date();
+      const currentDate = today.toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+      const currentTime = today.getHours() * 60 + today.getMinutes(); // Convert current time to minutes
+
+      const [timeHour, timeMinute] = selectedTime.split(':')[0].split(' ')[0].split(' ').map(Number);
+      const selectedDateTime = new Date(`${selectedDate}T${selectedTime}`).getTime();
+
+      // Validate the selected date to be today or later
+      if (selectedDate < currentDate) {
+        alert("Please select a valid future date.");
+        return;
+      }
+
+      // Validate if the selected time is after the current time for today's date
+      if (selectedDate === currentDate && currentTime > timeHour * 60 + timeMinute) {
+        alert("Please select a future time on the selected date.");
+        return;
+      }
+    }
+
+    // Function to validate the time slots available (current and future times only)
+    function validateAvailableTimeSlots() {
+      const selectedDate = document.getElementById("appointment-date").value;
+      const today = new Date();
+      const currentDate = today.toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+      const currentTimeInIndia = new Date(today.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
+      const currentHour = currentTimeInIndia.getHours();
+      const currentMinutes = currentTimeInIndia.getMinutes();
+
+      const allTimeSlots = ["09:00 AM", "11:00 AM", "01:00 PM", "03:00 PM", "05:00 PM", "07:00 PM", "09:00 PM"];
+      const availableSlots = [];
+
+      if (selectedDate === currentDate) {
+        // If selected date is today, filter out past time slots based on the current time
+        availableSlots.push(...allTimeSlots.filter(time => {
+          const [hour, minute] = time.split(":");
+          const [h, m] = hour.split(":").map(Number);
+          const timeInMinutes = h * 60 + m;
+          const currentTimeInMinutes = currentTimeInIndia.getHours() * 60 + currentTimeInIndia.getMinutes();
+
+          return currentTimeInMinutes < timeInMinutes; // Only show future time slots
+        }));
+      } else {
+        // If selected date is in the future, show all time slots
+        availableSlots.push(...allTimeSlots);
+      }
+
+      // Disable the booked slots
+      const timeSelectElement = document.getElementById("appointment-time");
+      timeSelectElement.innerHTML = ''; // Clear previous options
+      availableSlots.forEach(slot => {
+        const option = document.createElement('option');
+        option.value = slot;
+        option.innerText = slot;
+
+        // Disable the slot if it is already booked
+        if (bookedSlots[selectedDate] && bookedSlots[selectedDate].has(slot)) {
+          option.disabled = true;
+          option.style.color = 'gray'; // Optional: make disabled slots look different
         }
-    </script>
+
+        timeSelectElement.appendChild(option);
+      });
+    }
+
+    // Function to confirm booking
+    function confirmBooking() {
+      const name = document.getElementById("patient-name").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const date = document.getElementById("appointment-date").value;
+      const time = document.getElementById("appointment-time").value;
+      const button = document.getElementById("confirm-btn");
+
+      const today = new Date().toISOString().split('T')[0];
+      if (date < today) {
+        alert("Please select a valid future date.");
+        return;
+      }
+
+      if (!name || !contact || !date || !time) {
+        alert("Please fill all details before confirming.");
+        return;
+      }
+
+      // Validate name (letters and spaces only)
+      if (!/^[A-Za-z ]+$/.test(name)) {
+        alert("Please enter a valid name (letters and spaces only).");
+        return;
+      }
+
+      // Validate contact (exactly 10 digits)
+      if (!/^\d{10}$/.test(contact)) {
+        alert("Please enter a valid contact number (10 digits only).");
+        return;
+      }
+
+      if (!bookedSlots[date]) {
+        bookedSlots[date] = new Set();
+      }
+
+      if (bookedSlots[date].has(time)) {
+        alert("This time slot is already booked. Please select another time.");
+        return;
+      }
+
+      bookedSlots[date].add(time);
+      button.classList.add("disabled");
+      button.disabled = true;
+
+      alert(`✅ Appointment Confirmed!\n\n📌 Name: ${name}\n📞 Contact: ${contact}\n📅 Date: ${date}\n🕒 Time: ${time}`);
+      window.location.href = `pay.html?name=${encodeURIComponent(name)}&contact=${encodeURIComponent(contact)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+    }
+
+    // Set today's date as the minimum date in the date picker
+    document.getElementById("appointment-date").setAttribute("min", new Date().toISOString().split('T')[0]);
+
+    // Call validateAvailableTimeSlots on page load to set up available time slots
+    validateAvailableTimeSlots();
+
+    // Update time slots when the date is changed
+    document.getElementById("appointment-date").addEventListener('change', validateAvailableTimeSlots);
+  </script>
 </body>
 </html>
